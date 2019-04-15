@@ -18,7 +18,11 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
     dispatch(HomeLoad()..data = false);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        title: _buildTitle(),
+      ),
       body: _buildBody(),
     );
   }
@@ -66,6 +70,15 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
           ),
         );
       },
+    );
+  }
+
+  _buildTitle() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Image.asset('assets/logo_dartlangbr.png'),
+      ),
     );
   }
 
