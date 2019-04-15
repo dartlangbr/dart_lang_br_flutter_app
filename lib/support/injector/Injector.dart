@@ -1,5 +1,6 @@
-import 'package:dart_lang_br_flutter_app/repository/WordPressRepository.dart';
-import 'package:dart_lang_br_flutter_app/support/conection/WordPressApi.dart';
+
+import 'package:dart_lang_br_flutter_app/repository/Repository.dart';
+import 'package:dart_lang_br_flutter_app/support/conection/con.dart';
 
 enum Flavor {
   HOMOLOG,
@@ -10,7 +11,7 @@ enum Flavor {
 class Injector {
   static final Injector _singleton = new Injector._internal();
   static Flavor _flavor;
-  WordPressApi _wordPressApi;
+  Repository repositories;
 
   static void configure(Flavor flavor) {
     _flavor = flavor;
@@ -21,17 +22,17 @@ class Injector {
   }
 
   Injector._internal();
-
-  WordPressRepository get wordPressRepository {
-    if(_wordPressApi == null ){
-      String url = "";
+  
+  T getRepository<T>(){
+    if(repositories == null){
+      Con con;
       switch(_flavor){
-        case Flavor.HOMOLOG: url = "http://localhost"; break;
-        case Flavor.PROD: url = "http://dartlang.com.br/"; break;
+        case Flavor.HOMOLOG: con = ConDioImpl("http://localhost/"); break;
+        case Flavor.PROD: con = ConDioImpl("http://dartlang.com.br/api/"); break;
       }
-      _wordPressApi = WordPressApi(url);
+      repositories = RepositoryImpl(con);
     }
-
-    return WordPressRepositoryImpl(_wordPressApi);
+    return repositories.getRepository();
   }
+  
 }

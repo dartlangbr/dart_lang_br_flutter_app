@@ -1,10 +1,10 @@
 import 'package:dart_lang_br_flutter_app/pages/home/HomeBloc.dart';
 import 'package:dart_lang_br_flutter_app/pages/home/HomeEvents.dart';
 import 'package:dart_lang_br_flutter_app/pages/home/HomeStreams.dart';
+import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.dart';
 import 'package:dart_lang_br_flutter_app/support/bloc/bloc_view.dart';
 import 'package:dart_lang_br_flutter_app/widgets/PostWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_wordpress/flutter_wordpress.dart';
 
 class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
 

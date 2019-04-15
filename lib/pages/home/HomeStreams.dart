@@ -1,8 +1,8 @@
 
 
+import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.dart';
 import 'package:dart_lang_br_flutter_app/support/bloc/stream_base.dart';
 import 'package:dart_lang_br_flutter_app/support/bloc/stream_create.dart';
-import 'package:flutter_wordpress/flutter_wordpress.dart';
 
 class HomeStreams implements StreamsBase{
 

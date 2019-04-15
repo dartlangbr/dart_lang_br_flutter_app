@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: HomeView().create(
-        HomeBloc(Injector().wordPressRepository)
+        HomeBloc(
+          Injector().getRepository()
+        )
       ),
     );
   }
