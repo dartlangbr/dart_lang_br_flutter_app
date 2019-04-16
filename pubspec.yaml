@@ -30,6 +30,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.7.0"
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/icon/icon.png"
+
+
 # The following section is specific to Flutter.
 flutter:
 
