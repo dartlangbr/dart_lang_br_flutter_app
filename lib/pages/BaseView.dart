@@ -31,14 +31,14 @@ class BaseView extends StatelessWidget {
       stream: positionController.get,
       initialData: 0,
       builder: (context,snapshot){
-        if(snapshot.data == 0){
-          return HomeView().create(
-              HomeBloc(
-                  Injector().getRepository()
-              )
-          );
-        }else{
-          return Container();
+        switch(snapshot.data){
+          case 0:
+            return HomeView().create(
+                HomeBloc(
+                    Injector().getRepository()
+                )
+            );
+          default: return Container();
         }
       },
     );
