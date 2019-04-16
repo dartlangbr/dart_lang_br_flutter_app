@@ -1,4 +1,5 @@
 
+import 'package:dart_lang_br_flutter_app/pages/detail/DetailView.dart';
 import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.dart';
 import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class PostWidget extends StatelessWidget {
         elevation: 2.0,
         child: InkWell(
           onTap: (){
-
+            _goDetail(context);
           },
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -43,8 +44,9 @@ class PostWidget extends StatelessWidget {
         child: Container(
           height: 150.0,
           width: double.maxFinite,
-          child: ImgFromNetwork(
-              post.attachments[0]
+          child: ImgHeroFromNetwork(
+              post.attachments[0],
+            tagHero: "attachment${post.id}"
           ),
         ),
       );
@@ -72,7 +74,10 @@ class PostWidget extends StatelessWidget {
       height: 50.0,
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        child: ImgFromNetwork(post.imgAuthor),
+        child: ImgHeroFromNetwork(
+            post.imgAuthor,
+            tagHero: "avatar${post.id}"
+        ),
       ),
     );
   }
@@ -130,6 +135,13 @@ class PostWidget extends StatelessWidget {
           fontSize: 17.0
         ),
       ),
+    );
+  }
+
+  void _goDetail(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DetailView(post: post,)),
     );
   }
 }

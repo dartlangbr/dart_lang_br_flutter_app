@@ -12,6 +12,7 @@ abstract class BlocView<E extends EventsBase> {
 // ignore: must_be_immutable
 abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
     E extends EventsBase> extends StatelessWidget implements BlocView<E> {
+
   B _bloc;
 
   S get streams {
@@ -29,10 +30,8 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
 
   void _initBlocView(BuildContext context) {
     try {
-      if (_bloc == null) {
-        _bloc = getBloc<B>(context);
-        _bloc.registerView(this);
-      }
+      _bloc = getBloc<B>(context);
+      _bloc.registerView(this);
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"

@@ -1,3 +1,4 @@
+import 'package:dart_lang_br_flutter_app/pages/BaseView.dart';
 import 'package:dart_lang_br_flutter_app/pages/home/HomeBloc.dart';
 import 'package:dart_lang_br_flutter_app/pages/home/HomeView.dart';
 import 'package:dart_lang_br_flutter_app/support/injector/Injector.dart';
@@ -18,11 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeView().create(
-        HomeBloc(
-          Injector().getRepository()
-        )
-      ),
+      home: BaseView(),
     );
   }
 }

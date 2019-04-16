@@ -12,13 +12,18 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
     streams = HomeStreams();
   }
 
+  bool init = false;
   int _page = 0;
 
   @override
   void eventReceiver(HomeEvents event) {
 
     if(event is HomeLoad){
-      _load(event.data);
+      _load(false);
+    }
+
+    if(event is HomeLoadMore){
+      _load(true);
     }
   }
 
@@ -38,6 +43,11 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
     }).catchError((error){
       streams.showProgress.set(true);
     });
+  }
+
+  @override
+  void initView() {
+    _load(false);
   }
 
 }

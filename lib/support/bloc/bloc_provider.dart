@@ -25,6 +25,13 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
 }
 
 class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(microseconds: 100), widget.bloc?.initView);
+  }
+
   @override
   void dispose() {
     widget.bloc?.dispose();
