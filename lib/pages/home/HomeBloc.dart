@@ -23,9 +23,20 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
   }
 
   void _load(bool isMore) {
+
+    if(isMore){
+      _page ++;
+    }else{
+      _page = 0;
+    }
+
+    streams.showProgress.set(true);
     _postsRepository.loadPosts(10, _page).then((list){
       print(list);
       streams.posts.set(list);
+      streams.showProgress.set(false);
+    }).catchError((error){
+      streams.showProgress.set(true);
     });
   }
 

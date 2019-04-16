@@ -14,6 +14,7 @@ class PostWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(10.0),
       child: Material(
+        color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         elevation: 2.0,
         child: InkWell(
@@ -37,14 +38,13 @@ class PostWidget extends StatelessWidget {
 
   _buildImg() {
     if(post.attachments.length > 0){
-      return Container(
-        height: 150.0,
-        width: double.maxFinite,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0)),
-          child: Container(
-            color: Colors.white,
-              child: ImgFromNetwork(post.attachments[0])
+      return ClipRRect(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0)),
+        child: Container(
+          height: 150.0,
+          width: double.maxFinite,
+          child: ImgFromNetwork(
+              post.attachments[0]
           ),
         ),
       );
@@ -55,7 +55,7 @@ class PostWidget extends StatelessWidget {
 
   _buildContent() {
     return Container(
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(15.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -93,8 +93,10 @@ class PostWidget extends StatelessWidget {
               ),
             ),
             Text(
-                post.date,
+              dateTransform(post.date),
               style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14.0
               ),
             )
           ],
@@ -110,7 +112,7 @@ class PostWidget extends StatelessWidget {
       description = "${description.substring(0,120)}...";
     }
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(15.0),
       child: Text(
         description,
         maxLines: 3,
@@ -120,7 +122,7 @@ class PostWidget extends StatelessWidget {
 
   _buildTitle() {
     return Padding(
-      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      padding: EdgeInsets.only(left: 15.0, right: 15.0),
       child: Text(
           post.title,
         style: TextStyle(

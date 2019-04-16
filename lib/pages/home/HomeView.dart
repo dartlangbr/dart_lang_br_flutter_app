@@ -18,11 +18,6 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
     dispatch(HomeLoad()..data = false);
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        title: _buildTitle(),
-      ),
       body: _buildBody(),
     );
   }
