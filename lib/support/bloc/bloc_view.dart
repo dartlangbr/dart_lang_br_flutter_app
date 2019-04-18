@@ -45,10 +45,11 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
     _bloc.dispatch(event);
   }
 
-  Widget create(B bloc) {
+  Widget create(B bloc,{forceUpdateBloc = false}) {
     return BlocProvider<B>(
       child: this,
       bloc: bloc,
+      forceUpdateBloc: forceUpdateBloc,
     );
   }
 

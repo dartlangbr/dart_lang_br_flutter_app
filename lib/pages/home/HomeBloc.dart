@@ -8,12 +8,20 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
   final PostsRepository _postsRepository;
 
-  HomeBloc(this._postsRepository){
-    streams = HomeStreams();
-  }
+  HomeBloc(this._postsRepository);
 
   bool init = false;
   int _page = 0;
+
+  @override
+  void initState() {
+    streams = HomeStreams();
+  }
+
+  @override
+  void initView() {
+    _load(false);
+  }
 
   @override
   void eventReceiver(HomeEvents event) {
@@ -43,11 +51,6 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
     }).catchError((error){
       streams.showProgress.set(true);
     });
-  }
-
-  @override
-  void initView() {
-    _load(false);
   }
 
 }

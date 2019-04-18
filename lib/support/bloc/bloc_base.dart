@@ -10,17 +10,14 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   var _eventToView = PublishSubjectCreate<E>();
 
   T streams;
-  BlocView _view;
+  bool isInitState = false;
 
   BlocBase() {
     _eventToBloc.get.listen(eventReceiver);
   }
 
   void registerView(BlocView view) {
-    if(view == null){
-      this._view = view;
-      _eventToView.get.listen(this._view.eventReceiver);
-    }
+    _eventToView.get.listen(view.eventReceiver);
   }
 
   void dispatchView(E event) {
@@ -32,6 +29,7 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   }
 
   void initView();
+  void initState();
 
   @protected
   void eventReceiver(E event);

@@ -8,10 +8,12 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
     Key key,
     @required this.child,
     @required this.bloc,
+    this.forceUpdateBloc = false,
   }) : super(key: key);
 
   final Widget child;
   final T bloc;
+  final bool forceUpdateBloc;
 
   @override
   _BlocProviderState<T> createState() => _BlocProviderState<T>();
@@ -26,24 +28,45 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
 
 class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
 
+  T bloc;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(microseconds: 100), widget.bloc?.initView);
+    _initStateBloc();
   }
 
   @override
   void dispose() {
-    widget.bloc?.dispose();
+    bloc.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    if(widget.forceUpdateBloc && !bloc.isInitState){
+      setState(() {
+        _initStateBloc();
+      });
+    }
+
+    if(bloc.isInitState ?? false){
+      bloc.isInitState = false;
+      Future.delayed(Duration(milliseconds: 100),widget.bloc.initView);
+    }
+
     return new _BlocProviderInherited<T>(
-      bloc: widget.bloc,
+      bloc: bloc,
       child: widget.child,
     );
+  }
+
+  void _initStateBloc() {
+    bloc?.dispose();
+    bloc = widget.bloc;
+    bloc.isInitState = true;
+    bloc.initState();
   }
 }
 
