@@ -32,6 +32,7 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     super.initState();
     _initStateBloc();
   }
@@ -51,10 +52,7 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
       });
     }
 
-    if(bloc.isInitState ?? false){
-      bloc.isInitState = false;
-      Future.delayed(Duration(milliseconds: 100),widget.bloc.initView);
-    }
+    bloc.isInitState = false;
 
     return new _BlocProviderInherited<T>(
       bloc: bloc,
@@ -68,6 +66,11 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
     bloc.isInitState = true;
     bloc.initState();
   }
+
+  void _afterLayout(_) {
+    widget.bloc.initView();
+  }
+
 }
 
 class _BlocProviderInherited<T> extends InheritedWidget {
