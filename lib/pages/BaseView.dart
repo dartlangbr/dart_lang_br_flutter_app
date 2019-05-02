@@ -36,7 +36,7 @@ class BaseView extends StatelessWidget {
             return HomeView().create(
                 HomeBloc(
                     Injector().getRepository()
-                )
+                ),
             );
           default: return Container();
         }

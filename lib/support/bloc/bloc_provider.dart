@@ -44,26 +44,27 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
   }
 
   @override
-  Widget build(BuildContext context) {
-
-    if(widget.forceUpdateBloc && !bloc.isInitState){
-      setState(() {
-        _initStateBloc();
-      });
+  void didUpdateWidget(BlocProvider<T> oldWidget) {
+    if(oldWidget.bloc != widget.bloc && widget.forceUpdateBloc){
+      _initStateBloc();
+      _afterLayout(0);
     }
+    super.didUpdateWidget(oldWidget);
+  }
 
-    bloc.isInitState = false;
+  @override
+  Widget build(BuildContext context) {
 
     return new _BlocProviderInherited<T>(
       bloc: bloc,
       child: widget.child,
     );
+
   }
 
   void _initStateBloc() {
     bloc?.dispose();
     bloc = widget.bloc;
-    bloc.isInitState = true;
     bloc.initState();
   }
 

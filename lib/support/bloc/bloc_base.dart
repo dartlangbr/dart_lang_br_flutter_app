@@ -10,7 +10,6 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   var _eventToView = PublishSubjectCreate<E>();
 
   T streams;
-  bool isInitState = false;
 
   BlocBase() {
     _eventToBloc.get.listen(eventReceiver);
