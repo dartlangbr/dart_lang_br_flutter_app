@@ -19,7 +19,13 @@ class RepositoryImpl implements Repository{
 
   @override
   T getRepository<T>() {
-    return _repo[T];
+
+    if(_repo.containsKey(T)){
+      return _repo[T];
+    }else{
+      return null;
+    }
+
   }
 
 }

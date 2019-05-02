@@ -32,9 +32,9 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
 
   @override
   void initState() {
+    _initStateBloc();
     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     super.initState();
-    _initStateBloc();
   }
 
   @override
