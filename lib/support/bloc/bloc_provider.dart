@@ -69,7 +69,7 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
   }
 
   void _afterLayout(_) {
-    widget.bloc.initView();
+    bloc.initView();
   }
 
 }
