@@ -2,12 +2,19 @@ import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.d
 import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class DetailView extends StatelessWidget {
+class DetailView extends StatefulWidget {
 
   final Post post;
 
   DetailView({Key key, this.post}) : super(key: key);
+
+  @override
+  _DetailViewState createState() => _DetailViewState();
+}
+
+class _DetailViewState extends State<DetailView> {
 
   final pageIndexNotifier = ValueNotifier<int>(0);
 
@@ -15,12 +22,12 @@ class DetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: _buildBody(),
+      body: _buildBody(context),
     );
 
   }
 
-  _buildBody() {
+  _buildBody(BuildContext context) {
     return ListView(
       children: <Widget>[
         Container(
@@ -33,7 +40,7 @@ class DetailView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _buildImg(),
+                _buildImg(context),
                 _buildAuthor(),
                 _buildTitle(),
                 _buildCat(),
@@ -46,8 +53,30 @@ class DetailView extends StatelessWidget {
     );
   }
 
-  _buildImg() {
-    if(post.attachments.length > 0){
+  _buildImg(BuildContext context) {
+
+    if(widget.post.category.where((i) => i == "Video").length > 0){
+
+      var description = widget.post.content.replaceAll("\n", "");
+      var videoId = YoutubePlayer.convertUrlToId(description);
+
+      return YoutubePlayer(
+        context: context,
+        videoId: videoId,
+        autoPlay: true,
+        showVideoProgressIndicator: true,
+        videoProgressIndicatorColor: Colors.amber,
+        progressColors: ProgressColors(
+          playedColor: Colors.amber,
+          handleColor: Colors.amberAccent,
+        ),
+        onPlayerInitialized: (controller) {
+
+        },
+      );
+    }
+
+    if(widget.post.attachments.length > 0){
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -55,7 +84,7 @@ class DetailView extends StatelessWidget {
             height: 200.0,
             child: PageView.builder(
                 onPageChanged: (index) => pageIndexNotifier.value = index,
-              itemCount: post.attachments.length,
+                itemCount: widget.post.attachments.length,
                 itemBuilder: (_,index){
                   return ClipRRect(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0)),
@@ -63,8 +92,8 @@ class DetailView extends StatelessWidget {
                       height: 200.0,
                       width: double.maxFinite,
                       child: ImgHeroFromNetwork(
-                          post.attachments[index],
-                          tagHero: "attachment${post.id}"
+                          widget.post.attachments[index],
+                          tagHero: "attachment${widget.post.id}"
                       ),
                     ),
                   );
@@ -102,8 +131,8 @@ class DetailView extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         child: ImgHeroFromNetwork(
-            post.imgAuthor,
-            tagHero: "avatar${post.id}"
+            widget.post.imgAuthor,
+            tagHero: "avatar${widget.post.id}"
         ),
       ),
     );
@@ -118,14 +147,14 @@ class DetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              post.author,
+              widget.post.author,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[800]
               ),
             ),
             Text(
-              dateTransform(post.date),
+              dateTransform(widget.post.date),
               style: TextStyle(
                   color: Colors.grey,
                   fontSize: 14.0
@@ -138,9 +167,14 @@ class DetailView extends StatelessWidget {
   }
 
   _buildContent() {
-    String content = post.content.replaceAll("\n\n\n\n\n", "");
+    String content = widget.post.content.replaceAll("\n\n\n\n\n", "");
     content = content.replaceAll("\n\n\n\n", "\n\n");
     content = content.replaceAll("\n\n\n", "\n\n");
+
+    if(widget.post.category.where((i) => i == "Video").length > 0){
+      content = "";
+    }
+
     return Container(
       margin: EdgeInsets.all(15.0),
       child: Text(content),
@@ -151,7 +185,7 @@ class DetailView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: 15.0, right: 15.0,top: 15.0),
       child: Text(
-        post.title,
+        widget.post.title,
         style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0
@@ -170,7 +204,7 @@ class DetailView extends StatelessWidget {
   }
 
   _generateCat(){
-    return post.category.map<Widget>((cat){
+    return widget.post.category.map<Widget>((cat){
       return Container(
         margin: EdgeInsets.only(right: 5.0,top: 5.0),
         padding: EdgeInsets.only(left: 10.0,right: 10.0,top: 5.0,bottom: 5.0),
@@ -191,7 +225,7 @@ class DetailView extends StatelessWidget {
   PageViewIndicator _buildPageIndicator() {
     return PageViewIndicator(
       pageIndexNotifier: pageIndexNotifier,
-      length: post.attachments.length,
+      length: widget.post.attachments.length,
       normalBuilder: (animationController, index) => Circle(
         size: 8.0,
         color: Colors.grey[600],

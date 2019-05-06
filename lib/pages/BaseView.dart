@@ -1,8 +1,6 @@
 
-import 'package:dart_lang_br_flutter_app/pages/home/HomeBloc.dart';
 import 'package:dart_lang_br_flutter_app/pages/home/HomeView.dart';
 import 'package:dart_lang_br_flutter_app/support/bloc/stream_create.dart';
-import 'package:dart_lang_br_flutter_app/support/injector/Injector.dart';
 import 'package:dart_lang_br_flutter_app/widgets/CustomBottomNavigation.dart';
 import 'package:flutter/material.dart';
 
@@ -33,11 +31,7 @@ class BaseView extends StatelessWidget {
       builder: (context,snapshot){
         switch(snapshot.data){
           case 0:
-            return HomeView().create(
-                HomeBloc(
-                    Injector().getRepository()
-                ),
-            );
+            return HomeView().create();
           default: return Container();
         }
       },

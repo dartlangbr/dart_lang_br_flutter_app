@@ -4,6 +4,7 @@ import 'package:dart_lang_br_flutter_app/support/bloc/events_base.dart';
 import 'package:dart_lang_br_flutter_app/support/bloc/stream_base.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
+import 'package:simple_injector/simple_injector.dart';
 
 abstract class BlocView<E extends EventsBase> {
   void eventReceiver(E event);
@@ -35,9 +36,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"
-          "$this().create(\n"
-          "   $B()\n"
-          ");");
+          "$this().create();");
     }
   }
 
@@ -45,10 +44,10 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
     _bloc.dispatch(event);
   }
 
-  Widget create(B bloc,{forceUpdateBloc = false}) {
+  Widget create({forceUpdateBloc = false}) {
     return BlocProvider<B>(
       child: this,
-      bloc: bloc,
+      bloc: SimpleInjector().inject(),
       forceUpdateBloc: forceUpdateBloc,
     );
   }
@@ -61,10 +60,11 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
 /**
  * nesessario criar method:
  *
- * static Widget create(){
-    return BlocProvider<HomeBloc>(
-    child: HomeView(),
-    bloc: HomeBloc(),
+ * static Widget create({forceUpdateBloc = false}) {
+    return BlocProvider<B>(
+    child: this,
+    bloc: SimpleInjector().inject(),
+    forceUpdateBloc: forceUpdateBloc,
     );
     }
 

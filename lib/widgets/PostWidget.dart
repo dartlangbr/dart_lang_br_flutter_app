@@ -116,6 +116,11 @@ class PostWidget extends StatelessWidget {
     if(description.length >= 120){
       description = "${description.substring(0,120)}...";
     }
+
+    if(post.category.where((i) => i == "Video").length > 0){
+      description = "";
+    }
+
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Text(
