@@ -63,12 +63,12 @@ class _DetailViewState extends State<DetailView> {
       return YoutubePlayer(
         context: context,
         videoId: videoId,
-        autoPlay: true,
+        autoPlay: false,
         showVideoProgressIndicator: true,
-        videoProgressIndicatorColor: Colors.amber,
+        videoProgressIndicatorColor: Colors.blue,
         progressColors: ProgressColors(
-          playedColor: Colors.amber,
-          handleColor: Colors.amberAccent,
+          playedColor: Colors.blue,
+          handleColor: Colors.blueAccent,
         ),
         onPlayerInitialized: (controller) {
 
