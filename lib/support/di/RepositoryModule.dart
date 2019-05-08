@@ -1,5 +1,6 @@
 
 import 'package:dart_lang_br_flutter_app/repository/PostsRepository/PostsRepository.dart';
+import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/TwitterRepository.dart';
 import 'package:dart_lang_br_flutter_app/support/conection/con.dart';
 import 'package:simple_injector/module_injector.dart';
 import 'package:simple_injector/simple_injector.dart';
@@ -9,6 +10,7 @@ class RepositoryModule extends ModuleInjector{
   RepositoryModule(){
     add(Con, conCreate, isSingleton: true);
     add(PostsRepository, postsRepositoryCreate);
+    add(TwitterRepository, twitterRepositoryCreate);
   }
 
   Con conCreate(){
@@ -25,6 +27,10 @@ class RepositoryModule extends ModuleInjector{
     return PostsRepositoryImpl(
       inject()
     );
+  }
+
+  TwitterRepository twitterRepositoryCreate(){
+    return TwitterRepositoryImpl();
   }
 
 }

@@ -1,6 +1,7 @@
 
 import 'package:dart_lang_br_flutter_app/pages/home/HomeView.dart';
-import 'package:dart_lang_br_flutter_app/support/bloc/stream_create.dart';
+import 'package:bsev/bsev.dart';
+import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterView.dart';
 import 'package:dart_lang_br_flutter_app/widgets/CustomBottomNavigation.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,8 @@ class BaseView extends StatelessWidget {
         switch(snapshot.data){
           case 0:
             return HomeView().create();
+          case 2:
+          return TwitterView().create();
           default: return Container();
         }
       },

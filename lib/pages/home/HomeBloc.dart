@@ -2,7 +2,7 @@
 import 'package:dart_lang_br_flutter_app/pages/home/HomeEvents.dart';
 import 'package:dart_lang_br_flutter_app/pages/home/HomeStreams.dart';
 import 'package:dart_lang_br_flutter_app/repository/PostsRepository/PostsRepository.dart';
-import 'package:dart_lang_br_flutter_app/support/bloc/bloc_base.dart';
+import 'package:bsev/bsev.dart';
 
 class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 

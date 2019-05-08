@@ -1,6 +1,6 @@
 import 'package:dart_lang_br_flutter_app/pages/BaseView.dart';
-import 'package:dart_lang_br_flutter_app/support/injector/BlocModule.dart';
-import 'package:dart_lang_br_flutter_app/support/injector/RepositoryModule.dart';
+import 'package:dart_lang_br_flutter_app/support/di/BlocModule.dart';
+import 'package:dart_lang_br_flutter_app/support/di/RepositoryModule.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_injector/simple_injector.dart';
 

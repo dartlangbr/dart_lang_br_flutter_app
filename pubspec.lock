@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  bsev:
+    dependency: "direct main"
+    description:
+      name: bsev
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   cached_network_image:
     dependency: "direct main"
     description:
@@ -124,7 +131,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0+2"
+    version: "0.11.3+17"
   http_parser:
     dependency: transitive
     description:
@@ -153,6 +160,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
+  oauth:
+    dependency: transitive
+    description:
+      path: "."
+      ref: develop
+      resolved-ref: "62a1244a18e77d3e3e5ea03f49d6d343e5a18f65"
+      url: "git://github.com/sh4869/oauth.dart.git"
+    source: git
+    version: "0.4.0"
   page_view_indicator:
     dependency: "direct main"
     description:
@@ -188,6 +204,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  pointycastle:
+    dependency: transitive
+    description:
+      name: pointycastle
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   quiver:
     dependency: transitive
     description:
@@ -203,7 +226,7 @@ packages:
     source: hosted
     version: "0.21.0"
   simple_injector:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: simple_injector
       url: "https://pub.dartlang.org"
@@ -270,6 +293,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.2"
+  twitter:
+    dependency: "direct main"
+    description:
+      name: twitter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   typed_data:
     dependency: transitive
     description:

@@ -1,5 +1,5 @@
 
-import 'package:dart_lang_br_flutter_app/support/bloc/events_base.dart';
+import 'package:bsev/bsev.dart';
 
 class HomeEvents extends EventsBase{}
 
