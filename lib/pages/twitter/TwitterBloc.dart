@@ -1,7 +1,6 @@
 
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/TwitterRepository.dart';
 import 'package:flutter/material.dart';
-import 'package:twitter/twitter.dart';
 import 'package:bsev/bsev.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterEvents.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterStreams.dart';
