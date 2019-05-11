@@ -197,8 +197,13 @@ class _DetailViewState extends State<DetailView> {
   _buildCat() {
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-      child: Row(
-        children: _generateCat(),
+      child: Container(
+        height: 32,
+        child: ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          children: _generateCat(),
+        ),
       ),
     );
   }

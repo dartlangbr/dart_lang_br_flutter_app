@@ -1,17 +1,18 @@
 import 'package:dart_lang_br_flutter_app/pages/BaseView.dart';
-import 'package:dart_lang_br_flutter_app/support/di/BlocModule.dart';
-import 'package:dart_lang_br_flutter_app/support/di/RepositoryModule.dart';
+import 'package:dart_lang_br_flutter_app/support/di/InjectBloc.dart';
+import 'package:dart_lang_br_flutter_app/support/di/InjectRepository.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_injector/simple_injector.dart';
+import 'package:bsev/flavors.dart';
+import 'package:injector/injector.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
 
   MyApp(){
-    SimpleInjector.configure(Flavor.PROD);
-    SimpleInjector().registerModule(RepositoryModule());
-    SimpleInjector().registerModule(BlocModule());
+    Flavors.configure(Flavor.PROD);
+    injectRepository(Injector.appInstance);
+    injectBloc(Injector.appInstance);
   }
   // This widget is the root of your application.
   @override
