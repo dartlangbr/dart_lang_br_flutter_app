@@ -26,9 +26,10 @@ class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
     loadTwitters();
   }
 
-  void loadTwitters() async{
-    var response = await _repository.getTimeLine();
-    print(response);
+  void loadTwitters(){
+    _repository.getTimeLine().then((twitters){
+      streams.twitters.set(twitters);
+    });
   }
 
 }
