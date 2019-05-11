@@ -1,9 +1,12 @@
 
+import 'dart:convert';
+
+import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/model/TwitterModel.dart';
 import 'package:twitter/twitter.dart';
 
 abstract class TwitterRepository{
 
-  dynamic getTimeLine();
+  Future<List<TwitterModel>> getTimeLine();
 
 }
 
@@ -21,10 +24,13 @@ class TwitterRepositoryImpl implements TwitterRepository{
   }
 
   @override
-  getTimeLine() async{
+  Future<List<TwitterModel>> getTimeLine() async{
     var response = await twitterApi.request("GET", "statuses/user_timeline.json");
     twitterApi.close();
-    return response;
+    const JsonDecoder decoder = const JsonDecoder();
+    List resp = decoder.convert(response.body);
+
+    return resp.map<TwitterModel>((i)=>TwitterModel.fromJson(i)).toList();
   }
 
 }
