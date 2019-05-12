@@ -1,6 +1,7 @@
 
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 Widget ImgHeroFromNetwork(String url, {BoxFit fit = BoxFit.cover, String tagHero = ""}){
@@ -36,4 +37,54 @@ String dateTransform(String date){
     case "12":m = "Dez"; break;
   }
   return "$m ${s[2]}, ${s[0]}";
+}
+
+RichText detectLinkInText(String text){
+
+  List<TextSpan> textSpanList = List();
+  String textBuilder = text;
+
+  while(textBuilder.contains("http")){
+
+    var startIndex = textBuilder.indexOf("http");
+    var endIndex = textBuilder.substring(startIndex).indexOf(" ");
+    var endLink = startIndex + endIndex;
+
+    textSpanList.add(buildTextSpan(textBuilder.substring(0,startIndex)));
+
+    if(startIndex > -1 && endIndex > -1) {
+      textSpanList.add(buildTextSpanLink(textBuilder.substring(startIndex,endLink)));
+    }
+
+    textBuilder = textBuilder.substring(endLink);
+
+  }
+
+  return RichText(
+    text: TextSpan(
+      children: textSpanList,
+    )
+  );
+
+}
+
+TextSpan buildTextSpan(String text){
+  return TextSpan(
+    text: text,
+    style: new TextStyle(color: Colors.black),
+  );
+}
+
+TextSpan buildTextSpanLink(String text){
+  return TextSpan(
+    text: text,
+    style: TextStyle(color: Colors.blue),
+    recognizer: TapGestureRecognizer()
+      ..onTap = () { launch(text);
+      },
+  );
+}
+
+void launch(String s) {
+
 }

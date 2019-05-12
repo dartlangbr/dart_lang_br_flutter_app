@@ -170,14 +170,13 @@ class _DetailViewState extends State<DetailView> {
     String content = widget.post.content.replaceAll("\n\n\n\n\n", "");
     content = content.replaceAll("\n\n\n\n", "\n\n");
     content = content.replaceAll("\n\n\n", "\n\n");
-
     if(widget.post.category.where((i) => i == "Video").length > 0){
       content = "";
     }
 
     return Container(
       margin: EdgeInsets.all(15.0),
-      child: Text(content),
+      child: detectLinkInText(content),
     );
   }
 
