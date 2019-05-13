@@ -2,8 +2,10 @@
 import 'package:dart_lang_br_flutter_app/pages/home/HomeView.dart';
 import 'package:bsev/bsev.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterView.dart';
+import 'package:dart_lang_br_flutter_app/repository/YoutubeRepository/YoutubeRepository.dart';
 import 'package:dart_lang_br_flutter_app/widgets/CustomBottomNavigation.dart';
 import 'package:flutter/material.dart';
+import 'package:injector/injector.dart';
 
 class BaseView extends StatelessWidget {
 
@@ -35,9 +37,14 @@ class BaseView extends StatelessWidget {
             return HomeView().create();
           case 2:
           return TwitterView().create();
-          default: return Container();
+          default: loadYoutube(); return Container();
         }
       },
     );
+  }
+
+  void loadYoutube() async{
+    YoutubeRepository r = Injector.appInstance.getDependency();
+    print(r.getVideos());
   }
 }
