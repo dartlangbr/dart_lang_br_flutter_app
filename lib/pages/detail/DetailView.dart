@@ -1,4 +1,6 @@
+import 'package:dart_lang_br_flutter_app/pages/img_full/ImgFull.dart';
 import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.dart';
+import 'package:dart_lang_br_flutter_app/support/ContentMaker.dart';
 import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
@@ -28,28 +30,22 @@ class _DetailViewState extends State<DetailView> {
   }
 
   _buildBody(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.all(10.0),
-          child: Material(
-            color: Colors.white,
-            elevation: 3.0,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _buildImg(context),
-                _buildAuthor(),
-                _buildTitle(),
-                _buildCat(),
-                _buildContent(),
-              ],
-            ),
-          ),
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      child: Material(
+        color: Colors.white,
+        elevation: 3.0,
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        child: ListView(
+          children: <Widget>[
+            _buildImg(context),
+            _buildAuthor(),
+            _buildTitle(),
+            _buildCat(),
+            ..._buildContent(),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -76,33 +72,20 @@ class _DetailViewState extends State<DetailView> {
       );
     }
 
-    if(widget.post.attachments.length > 0){
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            height: 200.0,
-            child: PageView.builder(
-                onPageChanged: (index) => pageIndexNotifier.value = index,
-                itemCount: widget.post.attachments.length,
-                itemBuilder: (_,index){
-                  return ClipRRect(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0)),
-                    child: Container(
-                      height: 200.0,
-                      width: double.maxFinite,
-                      child: ImgHeroFromNetwork(
-                          widget.post.attachments[index],
-                          tagHero: "attachment${widget.post.id}"
-                      ),
-                    ),
-                  );
-                }
-            ),
+    if(widget.post.attachments.length > 1){
+
+      return ClipRRect(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0)),
+        child: Container(
+          height: 200.0,
+          width: double.maxFinite,
+          child: ImgHeroFromNetwork(
+              widget.post.attachments[0],
+              tagHero: "attachment${widget.post.id}"
           ),
-          _buildPageIndicator(),
-        ],
+        ),
       );
+
     }else{
       return Container();
     }
@@ -166,7 +149,7 @@ class _DetailViewState extends State<DetailView> {
     );
   }
 
-  _buildContent() {
+  List<Widget> _buildContent() {
     String content = widget.post.content.replaceAll("\n\n\n\n\n", "");
     content = content.replaceAll("\n\n\n\n", "\n\n");
     content = content.replaceAll("\n\n\n", "\n\n");
@@ -174,10 +157,13 @@ class _DetailViewState extends State<DetailView> {
       content = "";
     }
 
-    return Container(
-      margin: EdgeInsets.all(15.0),
-      child: detectLinkInText(content),
-    );
+    return ContentMaker(content).make((link){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ImgFull(link: link,)),
+      );
+    });
+
   }
 
   _buildTitle() {

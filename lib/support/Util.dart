@@ -39,6 +39,47 @@ String dateTransform(String date){
   return "$m ${s[2]}, ${s[0]}";
 }
 
+List<Widget> detectImgInText(String text){
+
+  List<Widget> widgetList = List();
+
+  String textBuilder = text;
+
+  while(textBuilder.contains("<img")){
+
+    var startIndex = textBuilder.indexOf("<img");
+    var endIndex = textBuilder.substring(startIndex).indexOf("/>") + 2;
+    var endLink = startIndex + endIndex;
+
+    if(startIndex != 0)
+    widgetList.add(detectLinkInText(textBuilder.substring(0,startIndex)));
+
+    if(startIndex > -1 && endIndex > -1) {
+
+      var tagImg = textBuilder.substring(startIndex,endLink);
+      var link = getLinkInImgTag(tagImg);
+      widgetList.add(ImgHeroFromNetwork(link));
+
+    }
+
+    textBuilder = textBuilder.substring(endLink);
+
+  }
+
+  if(textBuilder.length > 0)
+  widgetList.add(detectLinkInText(textBuilder));
+
+  print(widgetList);
+  return widgetList;
+}
+
+String getLinkInImgTag(String tagImg) {
+  var tagImgstartIndex = tagImg.indexOf("http");
+  var tagImgendIndex = tagImg.substring(tagImgstartIndex).indexOf("\"");
+  var tagImgendLink = tagImgstartIndex + tagImgendIndex;
+  return tagImg.substring(tagImgstartIndex,tagImgendLink);
+}
+
 RichText detectLinkInText(String text){
 
   List<TextSpan> textSpanList = List();
@@ -59,6 +100,9 @@ RichText detectLinkInText(String text){
     textBuilder = textBuilder.substring(endLink);
 
   }
+
+  if(textBuilder.length > 0)
+    textSpanList.add(buildTextSpan(textBuilder));
 
   return RichText(
     text: TextSpan(
