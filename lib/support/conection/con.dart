@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 ///Classe responsavel por realizar conexões com API
 abstract class Con{
   void addInterceptor(InterceptorsWrapper interceptor);
-  Future <dynamic> get(String uri, {Map<String,String> headers});
+  Future <dynamic> get(String uri, {Map<String,String> headers,Map<String,String> queryParameters});
   Future <dynamic> post(String uri,dynamic body, {Map<String,String> headers});
   Future <dynamic> put(String uri,dynamic body, {Map<String,String> headers});
   Future <dynamic> delete(String uri, {Map<String,String> headers});
@@ -26,12 +26,12 @@ class ConDioImpl implements Con{
   /// Método que executa chamada de conexão do tipo GET
   /// @params uri
   /// @params headers (opcional)
-  Future <dynamic> get(String uri, {Map<String,String> headers}) async{
+  Future <dynamic> get(String uri, {Map<String,String> headers,Map<String,String> queryParameters}) async{
 
     Response response;
 
     final op = Options(headers: headers);
-    response = await _dio.get(uri,options: op);
+    response = await _dio.get(uri,options: op,queryParameters: queryParameters);
 
     return response.data;
 

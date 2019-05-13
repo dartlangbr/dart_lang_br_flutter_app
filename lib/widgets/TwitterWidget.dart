@@ -1,15 +1,24 @@
+import 'package:bsev/stream_create.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dart_lang_br_flutter_app/repository/MetaDataRepository/MetaDataRepository.dart';
+import 'package:dart_lang_br_flutter_app/repository/MetaDataRepository/model/UrlMetaData.dart';
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/model/TwitterModel.dart';
 import 'package:flutter/material.dart';
+import 'package:injector/injector.dart';
 
 class TwitterWidget extends StatelessWidget {
 
   final TwitterModel item;
 
-  const TwitterWidget({Key key, this.item}) : super(key: key);
+  TwitterWidget({Key key, this.item}) : super(key: key);
+
+  var metadata = BehaviorSubjectCreate<UrlMetaData>();
 
   @override
   Widget build(BuildContext context) {
+
+    verifyMetadata();
+
     return Container(
         margin: EdgeInsets.all(10.0),
         child: Material(
@@ -96,25 +105,112 @@ class TwitterWidget extends StatelessWidget {
   }
 
   _buildDetailLink() {
-    if(item.text.contains("http")){
-      return InkWell(
-        onTap: (){
 
-        },
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              border: Border.all(color: Colors.grey[300])
-          ),
-          child: Column(
-            children: <Widget>[
-              Text("fdfd")
-            ],
-          ),
-        ),
-      );
-    }else{
+    return StreamBuilder(
+      stream: metadata.get,
+      builder: (context,snapshot){
+
+        if(snapshot.hasData){
+
+          UrlMetaData meta = snapshot.data;
+
+          return Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: (){
+
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    border: Border.all(color: Colors.grey[400])
+                ),
+                child: Column(
+                  children: <Widget>[
+                    _getImgMetadata(meta),
+                    Padding(
+                      padding: const EdgeInsets.only(left:8.0,right: 8.0,top: 8.0),
+                      child: Text(
+                          meta.getTitte(),
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[700]
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left:8.0,right: 8.0,bottom: 8.0),
+                      child: Text(
+                          meta.getDescription(),
+                        maxLines: 1,
+                        style: TextStyle(
+                            color: Colors.grey[700]
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+
+        }else{
+          return Container();
+        }
+      },
+    );
+  }
+
+  void verifyMetadata() {
+
+    if(metadata.value == null){
+      if(item.text.contains("http")){
+        MetaDataRepository repo = Injector.appInstance.getDependency();
+        var link = getLinkInImgTag(item.text);
+
+        repo.getMetadata(link).then((m){
+          var ma = m;
+          ma.link = link;
+          metadata.set(ma);
+        }).catchError((error){
+          print(error);
+        });
+      }
+    }
+
+
+  }
+
+  String getLinkInImgTag(String tagImg) {
+
+    var tagImgstartIndex = tagImg.indexOf("http");
+    var tagImgendIndex = tagImg.substring(tagImgstartIndex).indexOf(" ");
+    var tagImgendLink = tagImg.length;
+    if(tagImgendIndex > -1){
+      tagImgendLink = tagImgstartIndex + tagImgendIndex;
+    }
+
+    return tagImg.substring(tagImgstartIndex,tagImgendLink);
+  }
+
+  _getImgMetadata(UrlMetaData meta) {
+
+    if(meta.getImg().isEmpty){
       return Container();
     }
+
+    return Container(
+      width: double.maxFinite,
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        child: CachedNetworkImage(
+          imageUrl: meta.getImg(),
+          placeholder: (context, url) => new CircularProgressIndicator(),
+          errorWidget: (context, url, error) => new Icon(Icons.error),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 }

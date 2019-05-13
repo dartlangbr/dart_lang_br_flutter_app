@@ -1,5 +1,6 @@
 
 import 'package:bsev/flavors.dart';
+import 'package:dart_lang_br_flutter_app/repository/MetaDataRepository/MetaDataRepository.dart';
 import 'package:dart_lang_br_flutter_app/repository/PostsRepository/PostsRepository.dart';
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/TwitterRepository.dart';
 import 'package:dart_lang_br_flutter_app/support/conection/con.dart';
@@ -9,6 +10,7 @@ injectRepository(Injector injector){
 
   injector.registerDependency<PostsRepository>((i)=>PostsRepositoryImpl(i.getDependency()));
   injector.registerDependency<TwitterRepository>((i)=>TwitterRepositoryImpl());
+  injector.registerDependency<MetaDataRepository>((i)=>MetaDataRepositoryImpl(i.getDependency()));
 
   injector.registerSingleton((i){
     Con con;
