@@ -3,7 +3,6 @@ import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.d
 import 'package:dart_lang_br_flutter_app/support/ContentMaker.dart';
 import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:flutter/material.dart';
-import 'package:page_view_indicator/page_view_indicator.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailView extends StatefulWidget {
@@ -210,27 +209,6 @@ class _DetailViewState extends State<DetailView> {
         ),
       );
     }).toList();
-  }
-
-  PageViewIndicator _buildPageIndicator() {
-    return PageViewIndicator(
-      pageIndexNotifier: pageIndexNotifier,
-      length: widget.post.attachments.length,
-      normalBuilder: (animationController, index) => Circle(
-        size: 8.0,
-        color: Colors.grey[600],
-      ),
-      highlightedBuilder: (animationController, index) => ScaleTransition(
-        scale: CurvedAnimation(
-          parent: animationController,
-          curve: Curves.ease,
-        ),
-        child: Circle(
-          size: 12.0,
-          color: Colors.blue,
-        ),
-      ),
-    );
   }
 
 }

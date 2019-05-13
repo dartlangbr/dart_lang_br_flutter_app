@@ -118,11 +118,4 @@ class ContentMaker{
     print(s);
   }
 
-  goImgFullScreen(String link) {
-//    Navigator.push(
-//      _context,
-//      MaterialPageRoute(builder: (context) => ImgFull(link: link,)),
-//    );
-  }
-
 }

@@ -113,6 +113,10 @@ class PostWidget extends StatelessWidget {
   _buildDescription() {
 
     String description = post.content.replaceAll("\n", "");
+
+    if(description.startsWith("<img")){
+      description = description.substring(description.indexOf("/>") +2);
+    }
     if(description.length >= 120){
       description = "${description.substring(0,120)}...";
     }
