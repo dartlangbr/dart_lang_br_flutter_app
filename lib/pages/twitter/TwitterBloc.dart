@@ -1,10 +1,12 @@
 
 import 'package:dart_lang_br_flutter_app/repository/MetaDataRepository/MetaDataRepository.dart';
+import 'package:dart_lang_br_flutter_app/repository/MetaDataRepository/model/UrlMetaData.dart';
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/TwitterRepository.dart';
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/model/TwitterModel.dart';
 import 'package:bsev/bsev.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterEvents.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterStreams.dart';
+import 'package:dart_lang_br_flutter_app/support/Util.dart';
 
 class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
 
@@ -45,27 +47,22 @@ class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
     listTwitters.forEach((i) async {
       if(i.text.contains("http")){
         if(i.metaData == null){
-          var link = getLinkInImgTag(i.text);
-          var m =  await _metaDataRepository.getMetadata(link);
-          i.metaData = m;
-          i.metaData.link = link;
-          streams.twitters.set(listTwitters);
+          var link = getFisrtLinkInText(i.text);
+
+          try{
+            var m =  await _metaDataRepository.getMetadata(link);
+            i.metaData = m;
+            i.metaData.link = link;
+            streams.twitters.set(listTwitters);
+          }catch(e){
+            i.metaData = UrlMetaData();
+            i.metaData.link = link;
+          }
+
         }
       }
 
     });
-  }
-
-  String getLinkInImgTag(String tagImg) {
-
-    var tagImgstartIndex = tagImg.indexOf("http");
-    var tagImgendIndex = tagImg.substring(tagImgstartIndex).indexOf(" ");
-    var tagImgendLink = tagImg.length;
-    if(tagImgendIndex > -1){
-      tagImgendLink = tagImgstartIndex + tagImgendIndex;
-    }
-
-    return tagImg.substring(tagImgstartIndex,tagImgendLink);
   }
 
 }

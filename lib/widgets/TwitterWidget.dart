@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dart_lang_br_flutter_app/repository/MetaDataRepository/model/UrlMetaData.dart';
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/model/TwitterModel.dart';
+import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'MySizeAnimated.dart';
 
 class TwitterWidget extends StatelessWidget {
 
@@ -19,13 +22,20 @@ class TwitterWidget extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             elevation: 2.0,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  _buildHeader()
-                ],
+            child: InkWell(
+              onTap: (){
+                laucher("https://twitter.com/lang_dart/status/${item.id}");
+              },
+              child: MySizeAnimated(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      _buildHeader()
+                    ],
+                  ),
+                ),
               ),
             )
         )
@@ -89,7 +99,7 @@ class TwitterWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top:10.0,bottom: 10.0),
-              child: Text(item.text),
+              child: Text(textWhitoutLink(item.text)),
             ),
             _buildDetailLink()
           ],
@@ -105,7 +115,19 @@ class TwitterWidget extends StatelessWidget {
       UrlMetaData meta = item.metaData;
 
       if(meta.isEmpty()){
-        return Container();
+        return InkWell(
+          onTap: (){
+            laucher(meta.link);
+          },
+          child: Container(
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                border: Border.all(color: Colors.grey[400])
+            ),
+            child: Text(meta.link),
+          ),
+        );
       }
 
       return Material(
@@ -183,5 +205,12 @@ class TwitterWidget extends StatelessWidget {
       print('Could not launch $link');
     }
 
+  }
+
+  String textWhitoutLink(String text) {
+
+    var link =  getFisrtLinkInText(text);
+
+    return text.replaceAll(link,"").replaceAll("\n", "");
   }
 }
