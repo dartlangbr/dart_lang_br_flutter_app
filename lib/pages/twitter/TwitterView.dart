@@ -4,21 +4,24 @@ import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterBloc.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterEvents.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterStreams.dart';
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/model/TwitterModel.dart';
+import 'package:dart_lang_br_flutter_app/widgets/TwitterWidget.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams,TwitterEvents> {
 
   @override
   Widget buildView(BuildContext context) {
-
-    return Container(
-      child: _buildList(),
+    return Stack(
+      children: <Widget>[
+        _buildList(),
+        _buildProgress()
+      ],
     );
   }
 
   @override
   void eventReceiver(TwitterEvents event) {
-    // TODO: implement eventReceiver
   }
 
   _buildList() {
@@ -34,7 +37,7 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams,TwitterEv
           return ListView.builder(
             itemCount: t.length,
               itemBuilder: (_,index){
-            return Text(t[index].text);
+            return TwitterWidget(item:t[index]);
           });
 
         }else{
@@ -43,4 +46,20 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams,TwitterEv
       },
     );
   }
+
+  Widget _buildProgress() {
+    return StreamBuilder(
+      stream: streams.showProgress.get,
+      builder: (_,snapshot){
+        if(snapshot.hasData && snapshot.data){
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }else{
+          return Container();
+        }
+      },
+    );
+  }
+
 }

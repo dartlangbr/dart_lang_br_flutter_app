@@ -27,7 +27,9 @@ class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
   }
 
   void loadTwitters(){
+    streams.showProgress.set(true);
     _repository.getTimeLine().then((twitters){
+      streams.showProgress.set(false);
       streams.twitters.set(twitters);
     });
   }
