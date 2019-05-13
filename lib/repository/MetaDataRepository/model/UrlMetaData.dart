@@ -55,4 +55,8 @@ class UrlMetaData {
       return twitterImageSrc ?? "";
     }
   }
+
+  bool isEmpty(){
+    return getTitte().isEmpty && getDescription().isEmpty && getImg().isEmpty;
+  }
 }

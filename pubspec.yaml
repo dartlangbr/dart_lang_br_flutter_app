@@ -26,6 +26,7 @@ dependencies:
   font_awesome_flutter: ^8.4.0
   bsev: ^0.0.5
   twitter: ^1.0.0
+  url_launcher: ^5.0.2
   youtube_player_flutter: ^1.1.0
 
 dev_dependencies:

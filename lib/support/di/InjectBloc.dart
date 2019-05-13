@@ -5,6 +5,6 @@ import 'package:injector/injector.dart';
 injectBloc(Injector injector){
 
   injector.registerDependency((i)=>HomeBloc(i.getDependency()));
-  injector.registerDependency((i)=>TwitterBloc(i.getDependency()));
+  injector.registerDependency((i)=>TwitterBloc(i.getDependency(),i.getDependency()));
 
 }

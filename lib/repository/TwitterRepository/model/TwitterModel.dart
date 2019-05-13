@@ -1,3 +1,4 @@
+import 'package:dart_lang_br_flutter_app/repository/MetaDataRepository/model/UrlMetaData.dart';
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/model/User.dart';
 
 class TwitterModel {
@@ -24,6 +25,7 @@ class TwitterModel {
   bool retweeted;
   bool possiblySensitive;
   String lang;
+  UrlMetaData metaData;
 
   TwitterModel(
       {this.createdAt,

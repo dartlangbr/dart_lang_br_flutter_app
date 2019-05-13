@@ -3,6 +3,7 @@ import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.d
 import 'package:dart_lang_br_flutter_app/support/ContentMaker.dart';
 import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailView extends StatefulWidget {
@@ -150,16 +151,16 @@ class _DetailViewState extends State<DetailView> {
 
   List<Widget> _buildContent() {
     String content = widget.post.content.replaceAll("\n\n\n\n\n", "");
-    content = content.replaceAll("\n\n\n\n", "\n\n");
-    content = content.replaceAll("\n\n\n", "\n\n");
+    content = content.replaceAll("\n\n\n\n", " \n\n");
+    content = content.replaceAll("\n\n\n", " \n\n");
     if(widget.post.category.where((i) => i == "Video").length > 0){
       content = "";
     }
 
-    return ContentMaker(content).make((link){
+    return ContentMaker(content).make((img){
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ImgFull(link: link,)),
+        MaterialPageRoute(builder: (context) => ImgFull(link: img,)),
       );
     });
 
@@ -209,6 +210,18 @@ class _DetailViewState extends State<DetailView> {
         ),
       );
     }).toList();
+  }
+
+  void launch(String link){
+
+    canLaunch(link).then((resp){
+      if(resp){
+        launch(link);
+      }
+    }).catchError((error){
+      print('Could not launch $link');
+    });
+
   }
 
 }

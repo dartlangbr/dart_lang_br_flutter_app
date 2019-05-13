@@ -1,6 +1,7 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'Util.dart';
 
@@ -97,7 +98,7 @@ class ContentMaker{
 
   }
 
-  TextSpan buildTextSpan(String text){
+  TextSpan buildTextSpan(String text,){
     return TextSpan(
       text: text,
       style: new TextStyle(color: Colors.black),
@@ -109,13 +110,10 @@ class ContentMaker{
       text: text,
       style: TextStyle(color: Colors.blue),
       recognizer: TapGestureRecognizer()
-        ..onTap = () { launch(text);
+        ..onTap = () {
+        print(text);
         },
     );
-  }
-
-  void launch(String s) {
-    print(s);
   }
 
 }
