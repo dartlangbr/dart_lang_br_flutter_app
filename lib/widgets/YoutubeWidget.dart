@@ -62,7 +62,7 @@ class YoutubeWidget extends StatelessWidget {
               item.title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 20.0
+              fontSize: 17.0
             ),
           ),
           Text(
