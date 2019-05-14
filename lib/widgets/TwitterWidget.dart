@@ -123,7 +123,7 @@ class TwitterWidget extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                border: Border.all(color: Colors.grey[400])
+                border: Border.all(color: Colors.grey[300])
             ),
             child: Text(meta.link),
           ),
@@ -139,7 +139,7 @@ class TwitterWidget extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                border: Border.all(color: Colors.grey[400])
+                border: Border.all(color: Colors.grey[300])
             ),
             child: Column(
               children: <Widget>[

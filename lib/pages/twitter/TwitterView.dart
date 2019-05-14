@@ -30,19 +30,19 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams,TwitterEv
       initialData: List<TwitterModel>(),
       builder: (_,snapshot){
 
-        if(snapshot.hasData){
+        List<TwitterModel> t = snapshot.data;
+        int size = t == null ? 0 : t.length;
 
-          List<TwitterModel> t = snapshot.data;
-
-          return ListView.builder(
-            itemCount: t.length,
+        return AnimatedOpacity(
+          opacity: size == 0 ? 0:1,
+          duration: Duration(seconds: 1),
+          child: ListView.builder(
+              itemCount:size,
               itemBuilder: (_,index){
-            return TwitterWidget(item:t[index]);
-          });
+                return TwitterWidget(item:t[index]);
+              }),
+        );
 
-        }else{
-          return Container();
-        }
       },
     );
   }
