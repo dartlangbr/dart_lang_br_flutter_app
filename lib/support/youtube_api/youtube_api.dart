@@ -184,13 +184,13 @@ class YT_API {
     String baseURL = "https://www.youtube.com/";
     switch (kind) {
       case 'channel':
-        return "$baseURL watch?v=$id";
+        return "${baseURL}watch?v=$id";
         break;
       case 'video':
-        return "$baseURL watch?v=$id";
+        return "${baseURL}watch?v=$id";
         break;
       case 'playlist':
-        return "$baseURL watch?v=$id";
+        return "${baseURL}watch?v=$id";
         break;
     }
     return baseURL;

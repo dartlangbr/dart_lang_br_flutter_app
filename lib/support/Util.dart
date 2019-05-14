@@ -39,6 +39,28 @@ String dateTransform(String date){
   return "$m ${s[2]}, ${s[0]}";
 }
 
+
+String dateTransformZ(String date){
+  List<String> s = date.split("T");
+  s = s[0].split("-");
+  var m = "";
+  switch(s[1]){
+    case "01":m = "Jan"; break;
+    case "02":m = "Fev"; break;
+    case "03":m = "Mar"; break;
+    case "04":m = "Abr"; break;
+    case "05":m = "Mai"; break;
+    case "06":m = "Jun"; break;
+    case "07":m = "Jul"; break;
+    case "08":m = "Ago"; break;
+    case "09":m = "Set"; break;
+    case "10":m = "Out"; break;
+    case "11":m = "Nov"; break;
+    case "12":m = "Dez"; break;
+  }
+  return "$m ${s[2]}, ${s[0]}";
+}
+
 String getFisrtLinkInText(String tagImg) {
 
   var tagImgstartIndex = tagImg.indexOf("http");

@@ -2,11 +2,9 @@
 import 'package:dart_lang_br_flutter_app/pages/home/HomeView.dart';
 import 'package:bsev/bsev.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterView.dart';
-import 'package:dart_lang_br_flutter_app/repository/YoutubeRepository/YoutubeRepository.dart';
-import 'package:dart_lang_br_flutter_app/support/youtube_api/youtube_api.dart';
+import 'package:dart_lang_br_flutter_app/pages/youtube/YoutubeView.dart';
 import 'package:dart_lang_br_flutter_app/widgets/CustomBottomNavigation.dart';
 import 'package:flutter/material.dart';
-import 'package:injector/injector.dart';
 
 class BaseView extends StatelessWidget {
 
@@ -36,19 +34,13 @@ class BaseView extends StatelessWidget {
         switch(snapshot.data){
           case 0:
             return HomeView().create();
+          case 1:
+            return YoutubeView().create();
           case 2:
-          return TwitterView().create();
-          default: loadYoutube(); return Container();
+            return TwitterView().create();
         }
       },
     );
   }
 
-  void loadYoutube() async{
-    YoutubeRepository r = Injector.appInstance.getDependency();
-    List<YT_API> res = await r.getVideos();
-    res.forEach((i){
-      print("resp: ${i.thumbnail['high']['url']}");
-    });
-  }
 }
