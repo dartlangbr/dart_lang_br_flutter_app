@@ -72,3 +72,44 @@ String getFisrtLinkInText(String tagImg) {
 
   return tagImg.substring(tagImgstartIndex,tagImgendLink);
 }
+
+Widget buildLayoutTryAgain(Function tryAgain){
+  return Center(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Opacity(
+          opacity: 0.6,
+            child: Image.asset(
+                'assets/logo_grey.png',
+              width: 100.0,
+              height: 100.0,
+            )
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+              "Ocorreu algum problema :-(",
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 18.0
+            ),
+          ),
+        ),
+        RaisedButton(
+          shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0),
+          ),
+          color: Colors.blue,
+          child: Text(
+              "Tentar novamente",
+            style: TextStyle(
+              color: Colors.white
+            ),
+          ),
+            onPressed: tryAgain
+        )
+      ],
+    ),
+  );
+}

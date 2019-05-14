@@ -11,6 +11,11 @@ class YoutubeBloc extends BlocBase<YoutubeStreams,YoutubeEvents>{
 
   @override
   void eventReceiver(YoutubeEvents event) {
+
+    if(event is LoadYoutube){
+      _loadVideos();
+    }
+
   }
 
   @override
@@ -30,9 +35,11 @@ class YoutubeBloc extends BlocBase<YoutubeStreams,YoutubeEvents>{
     _youtubeRepository.getVideos().then((list){
 
       streams.showProgress.set(false);
+      streams.showError.set(false);
       streams.videos.set(list);
 
     }).catchError((error){
+      streams.showError.set(true);
       streams.showProgress.set(false);
     });
 

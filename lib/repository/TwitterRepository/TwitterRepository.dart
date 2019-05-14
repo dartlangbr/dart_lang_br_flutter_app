@@ -23,6 +23,7 @@ class TwitterRepositoryImpl implements TwitterRepository{
 
   @override
   Future<List<TwitterModel>> getTimeLine() async{
+
     var response = await twitterApi.request("GET", "statuses/user_timeline.json");
     twitterApi.close();
     const JsonDecoder decoder = const JsonDecoder();

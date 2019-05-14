@@ -15,7 +15,6 @@ class PostsRepositoryImpl implements PostsRepository{
   Future<List<Post>> loadPosts(int limit, int page) async {
 
     List result = await con.get('posts/$limit/$page');
-
     return result.map<Post>((i)=>Post.fromJson(i)).toList();
 
   }

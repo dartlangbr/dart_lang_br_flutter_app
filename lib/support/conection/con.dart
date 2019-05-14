@@ -32,7 +32,6 @@ class ConDioImpl implements Con{
 
     final op = Options(headers: headers);
     response = await _dio.get(uri,options: op,queryParameters: queryParameters);
-
     return response.data;
 
   }

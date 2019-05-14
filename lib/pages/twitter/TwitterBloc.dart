@@ -20,6 +20,10 @@ class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
   @override
   void eventReceiver(TwitterEvents event) {
 
+    if(event is LoadTwitter){
+      _loadTwitters();
+    }
+
   }
 
   @override
@@ -29,16 +33,25 @@ class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
 
   @override
   void initView() {
-    loadTwitters();
+    _loadTwitters();
   }
 
-  void loadTwitters(){
+  void _loadTwitters(){
+
     streams.showProgress.set(true);
+
     _repository.getTimeLine().then((twitters){
-      streams.showProgress.set(false);
+
       listTwitters = twitters;
+      streams.showError.set(false);
+      streams.showProgress.set(false);
       streams.twitters.set(listTwitters);
+
       loadMetadatas();
+
+    }).catchError((error){
+      streams.showError.set(true);
+      streams.showProgress.set(false);
     });
   }
 

@@ -6,11 +6,13 @@ class YoutubeStreams extends StreamsBase{
 
   var videos = BehaviorSubjectCreate<List<YT_API>>();
   var showProgress = BehaviorSubjectCreate<bool>();
+  var showError = BehaviorSubjectCreate<bool>(initValue: false);
 
   @override
   void dispose() {
     videos.close();
     showProgress.close();
+    showError.close();
   }
 
 }

@@ -12,7 +12,7 @@ class YoutubeRepositoryImpl implements YoutubeRepository{
 
   YoutubeRepositoryImpl(){
     youtubeAPI = YoutubeAPI(
-        "",
+        "YOUTUBE_API_KEY",
         maxResults: 25,
     );
   }

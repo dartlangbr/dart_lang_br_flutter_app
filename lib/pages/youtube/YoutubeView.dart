@@ -3,6 +3,7 @@ import 'package:bsev/bsev.dart';
 import 'package:dart_lang_br_flutter_app/pages/youtube/YoutubeBloc.dart';
 import 'package:dart_lang_br_flutter_app/pages/youtube/YoutubeEvents.dart';
 import 'package:dart_lang_br_flutter_app/pages/youtube/YoutubeStreams.dart';
+import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/support/youtube_api/youtube_api.dart';
 import 'package:dart_lang_br_flutter_app/widgets/YoutubeWidget.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,8 @@ class YoutubeView extends BlocStatelessView<YoutubeBloc,YoutubeStreams,YoutubeEv
     return Stack(
       children: <Widget>[
         _buildList(),
-        _buildProgress()
+        _buildProgress(),
+        _buildErrorConection()
       ],
     );
   }
@@ -58,6 +60,22 @@ class YoutubeView extends BlocStatelessView<YoutubeBloc,YoutubeStreams,YoutubeEv
               }),
         );
 
+      },
+    );
+  }
+
+  _buildErrorConection() {
+    return StreamBuilder(
+      initialData: false,
+      stream: streams.showError.get,
+      builder: (_,snapshot){
+        if(snapshot.hasData && snapshot.data)  {
+          return buildLayoutTryAgain((){
+            dispatch(LoadYoutube());
+          });
+        }else{
+          return Container();
+        }
       },
     );
   }

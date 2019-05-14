@@ -6,12 +6,15 @@ class HomeStreams implements StreamsBase{
 
   var posts = BehaviorSubjectCreate<List<Post>>();
 
-  var showProgress = BehaviorSubjectCreate<bool>();
+  var showProgress = BehaviorSubjectCreate<bool>(initValue: false);
+
+  var showError = BehaviorSubjectCreate<bool>(initValue: false);
 
   @override
   void dispose() {
     posts.close();
     showProgress.close();
+    showError.close();
   }
 
 }

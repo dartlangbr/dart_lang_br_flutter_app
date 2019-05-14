@@ -3,6 +3,7 @@ import 'package:dart_lang_br_flutter_app/pages/home/HomeEvents.dart';
 import 'package:dart_lang_br_flutter_app/pages/home/HomeStreams.dart';
 import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.dart';
 import 'package:bsev/bsev.dart';
+import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/widgets/PostWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,8 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
     return Stack(
       children: <Widget>[
         _buildList(),
-        _buildProgress()
+        _buildProgress(),
+        _buildErrorConection()
       ],
     );
   }
@@ -55,10 +57,31 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
           child: ListView.builder(
               itemCount: size,
               itemBuilder: (_,index){
+
+                if(index > size - 2){
+                  dispatch(HomeLoadMore());
+                }
+
                 return PostWidget(post: data[index],);
               }
           ),
         );
+      },
+    );
+  }
+
+  _buildErrorConection() {
+    return StreamBuilder(
+      initialData: false,
+      stream: streams.showError.get,
+      builder: (_,snapshot){
+        if(snapshot.hasData && snapshot.data)  {
+          return buildLayoutTryAgain((){
+            dispatch(HomeTryAgain());
+          });
+        }else{
+          return Container();
+        }
       },
     );
   }

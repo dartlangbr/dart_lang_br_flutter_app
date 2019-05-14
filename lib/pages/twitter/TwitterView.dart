@@ -4,6 +4,7 @@ import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterBloc.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterEvents.dart';
 import 'package:dart_lang_br_flutter_app/pages/twitter/TwitterStreams.dart';
 import 'package:dart_lang_br_flutter_app/repository/TwitterRepository/model/TwitterModel.dart';
+import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/widgets/TwitterWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,8 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams,TwitterEv
     return Stack(
       children: <Widget>[
         _buildList(),
-        _buildProgress()
+        _buildProgress(),
+        _buildErrorConection()
       ],
     );
   }
@@ -55,6 +57,22 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams,TwitterEv
           return Center(
             child: CircularProgressIndicator(),
           );
+        }else{
+          return Container();
+        }
+      },
+    );
+  }
+
+  _buildErrorConection() {
+    return StreamBuilder(
+      initialData: false,
+      stream: streams.showError.get,
+      builder: (_,snapshot){
+        if(snapshot.hasData && snapshot.data)  {
+          return buildLayoutTryAgain((){
+            dispatch(LoadTwitter());
+          });
         }else{
           return Container();
         }
