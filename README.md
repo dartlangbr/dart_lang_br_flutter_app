@@ -2,13 +2,9 @@
 
 Aplicação oficial do [dartlangbr](http://dartlang.com.br/)
 
-Layout inspiração:
+# Contribuidores
 
-<img src="https://github.com/dartlangbr/dart_lang_br_flutter_app/blob/develop/imgs/layout_base.png" width="500"/>
-
-[Uplabs](https://www.uplabs.com/posts/news-app-ui-51ba3aeb-b768-4f99-987b-4d26ec1c0da7)
-
-
+[RafaelBarbosaTec](https://github.com/RafaelBarbosatec)
 
 Caso encontre algum erro ou deseje adicionar melhorias, você pode abrir uma issue ou desenvolver a correção e abrir um pull request. Agradecemos sua colaboração!
 
