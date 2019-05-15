@@ -6,15 +6,18 @@ import 'package:url_launcher/url_launcher.dart';
 import 'Util.dart';
 
 class ContentMaker{
+
   final String text;
+  final Function(String) clickLink;
+  final Function(String) clickImg;
 
-  ContentMaker(this.text);
+  ContentMaker(this.text, this.clickLink, this.clickImg);
 
-  List<Widget> make(Function(String) tabImg){
-   return _detectImgInText(text,tabImg);
+  List<Widget> make(){
+   return _detectImgInText(text);
   }
 
-  List<Widget> _detectImgInText(String text,Function(String) tabImg){
+  List<Widget> _detectImgInText(String text){
 
     List<Widget> widgetList = List();
 
@@ -35,7 +38,7 @@ class ContentMaker{
         var link = getLinkInImgTag(tagImg);
         widgetList.add(InkWell(
           onTap: (){
-            tabImg(link);
+            clickImg(link);
           },
           child: Padding(
             padding: const EdgeInsets.only(left:15.0,right: 15.0),
@@ -111,7 +114,7 @@ class ContentMaker{
       style: TextStyle(color: Colors.blue),
       recognizer: TapGestureRecognizer()
         ..onTap = () {
-        print(text);
+        clickLink(text);
         },
     );
   }

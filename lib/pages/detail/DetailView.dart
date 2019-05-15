@@ -3,6 +3,7 @@ import 'package:dart_lang_br_flutter_app/repository/PostsRepository/model/Post.d
 import 'package:dart_lang_br_flutter_app/support/ContentMaker.dart';
 import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -18,11 +19,12 @@ class DetailView extends StatefulWidget {
 
 class _DetailViewState extends State<DetailView> {
 
-  final pageIndexNotifier = ValueNotifier<int>(0);
+  GlobalKey<ScaffoldState> keyScafold = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: keyScafold,
       appBar: AppBar(),
       body: _buildBody(context),
     );
@@ -157,12 +159,19 @@ class _DetailViewState extends State<DetailView> {
       content = "";
     }
 
-    return ContentMaker(content).make((img){
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ImgFull(link: img,)),
-      );
-    });
+    return ContentMaker(
+             content,
+            (link){
+              Clipboard.setData(ClipboardData(text: link));
+              keyScafold.currentState.showSnackBar(
+                  SnackBar(content: new Text("Link Copiado"),)
+              );
+            },(img){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ImgFull(link: img,)),
+              );
+            }).make();
 
   }
 
@@ -213,7 +222,7 @@ class _DetailViewState extends State<DetailView> {
   }
 
   void launch(String link){
-
+    print(link);
     canLaunch(link).then((resp){
       if(resp){
         launch(link);
