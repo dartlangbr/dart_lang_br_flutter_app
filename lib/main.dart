@@ -1,4 +1,5 @@
 import 'package:dart_lang_br_flutter_app/pages/BaseView.dart';
+import 'package:dart_lang_br_flutter_app/pages/splash/Splash.dart';
 import 'package:dart_lang_br_flutter_app/support/di/InjectBloc.dart';
 import 'package:dart_lang_br_flutter_app/support/di/InjectRepository.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BaseView(),
+      home: Splash(),
     );
   }
 }

@@ -49,6 +49,8 @@ flutter:
   assets:
     - assets/logo_dartlangbr.png
     - assets/logo_grey.png
+    - assets/cristo.png
+    - assets/dart.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
