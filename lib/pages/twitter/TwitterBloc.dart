@@ -27,11 +27,6 @@ class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
   }
 
   @override
-  void initState() {
-    streams = TwitterStreams();
-  }
-
-  @override
   void initView() {
     _loadTwitters();
   }

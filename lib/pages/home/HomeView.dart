@@ -7,10 +7,11 @@ import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/widgets/PostWidget.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
+// ignore: must_be_immutable
+class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
   @override
-  void eventReceiver(HomeEvents event) {
+  void eventReceiver(EventsBase event) {
   }
 
   @override

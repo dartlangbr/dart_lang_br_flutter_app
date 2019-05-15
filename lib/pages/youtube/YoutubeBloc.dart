@@ -19,11 +19,6 @@ class YoutubeBloc extends BlocBase<YoutubeStreams,YoutubeEvents>{
   }
 
   @override
-  void initState() {
-    streams = YoutubeStreams();
-  }
-
-  @override
   void initView() {
 
     _loadVideos();

@@ -9,7 +9,7 @@ import 'package:dart_lang_br_flutter_app/widgets/TwitterWidget.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams,TwitterEvents> {
+class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
 
   @override
   Widget buildView(BuildContext context) {
@@ -23,7 +23,7 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams,TwitterEv
   }
 
   @override
-  void eventReceiver(TwitterEvents event) {
+  void eventReceiver(EventsBase event) {
   }
 
   _buildList() {

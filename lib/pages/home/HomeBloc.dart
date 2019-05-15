@@ -16,11 +16,6 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
   List<Post> postList = List();
 
   @override
-  void initState() {
-    streams = HomeStreams();
-  }
-
-  @override
   void initView() {
     _load(false);
   }

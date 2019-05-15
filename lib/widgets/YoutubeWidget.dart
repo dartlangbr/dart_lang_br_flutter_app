@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/support/youtube_api/youtube_api.dart';
+import 'package:dart_lang_br_flutter_app/widgets/MySizeAnimated.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,12 +24,14 @@ class YoutubeWidget extends StatelessWidget {
           onTap: (){
             _goYoutube(item.url);
           },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              _buildImg(),
-              _buildContent(),
-            ],
+          child: MySizeAnimated(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                _buildImg(),
+                _buildContent(),
+              ],
+            ),
           ),
         ),
       ),

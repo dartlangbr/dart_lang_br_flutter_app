@@ -8,8 +8,8 @@ import 'package:dart_lang_br_flutter_app/support/youtube_api/youtube_api.dart';
 import 'package:dart_lang_br_flutter_app/widgets/YoutubeWidget.dart';
 import 'package:flutter/material.dart';
 
-class YoutubeView extends BlocStatelessView<YoutubeBloc,YoutubeStreams,YoutubeEvents> {
-
+// ignore: must_be_immutable
+class YoutubeView extends BlocStatelessView<YoutubeBloc,YoutubeStreams> {
 
   @override
   Widget buildView(BuildContext context) {
@@ -23,7 +23,7 @@ class YoutubeView extends BlocStatelessView<YoutubeBloc,YoutubeStreams,YoutubeEv
   }
 
   @override
-  void eventReceiver(YoutubeEvents event) {
+  void eventReceiver(EventsBase event) {
   }
 
   Widget _buildProgress() {
