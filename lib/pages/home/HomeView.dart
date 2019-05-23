@@ -7,7 +7,6 @@ import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/widgets/PostWidget.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
   @override
@@ -15,21 +14,21 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   }
 
   @override
-  Widget buildView(BuildContext context) {
-    return _buildBody();
+  Widget buildView(BuildContext context, HomeStreams streams) {
+    return _buildBody(streams);
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(HomeStreams streams) {
     return Stack(
       children: <Widget>[
-        _buildList(),
-        _buildProgress(),
-        _buildErrorConection()
+        _buildList(streams),
+        _buildProgress(streams),
+        _buildErrorConection(streams)
       ],
     );
   }
 
-  Widget _buildProgress() {
+  Widget _buildProgress(HomeStreams streams) {
     return StreamBuilder(
       stream: streams.showProgress.get,
       builder: (_,snapshot){
@@ -44,7 +43,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
     );
   }
 
-  Widget _buildList() {
+  Widget _buildList(HomeStreams streams) {
     return StreamBuilder(
       stream: streams.posts.get,
       builder: (_,snapshot){
@@ -71,7 +70,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
     );
   }
 
-  _buildErrorConection() {
+  _buildErrorConection(HomeStreams streams) {
     return StreamBuilder(
       initialData: false,
       stream: streams.showError.get,

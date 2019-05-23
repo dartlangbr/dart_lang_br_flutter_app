@@ -8,16 +8,15 @@ import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/widgets/TwitterWidget.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
 
   @override
-  Widget buildView(BuildContext context) {
+  Widget buildView(BuildContext context, TwitterStreams streams) {
     return Stack(
       children: <Widget>[
-        _buildList(),
-        _buildProgress(),
-        _buildErrorConection()
+        _buildList(streams),
+        _buildProgress(streams),
+        _buildErrorConection(streams)
       ],
     );
   }
@@ -26,7 +25,7 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
   void eventReceiver(EventsBase event) {
   }
 
-  _buildList() {
+  _buildList(TwitterStreams streams) {
     return StreamBuilder(
       stream: streams.twitters.get,
       initialData: List<TwitterModel>(),
@@ -49,7 +48,7 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
     );
   }
 
-  Widget _buildProgress() {
+  Widget _buildProgress(TwitterStreams streams) {
     return StreamBuilder(
       stream: streams.showProgress.get,
       builder: (_,snapshot){
@@ -64,7 +63,7 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
     );
   }
 
-  _buildErrorConection() {
+  _buildErrorConection(TwitterStreams streams) {
     return StreamBuilder(
       initialData: false,
       stream: streams.showError.get,
