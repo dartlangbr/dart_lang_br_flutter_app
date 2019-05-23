@@ -42,7 +42,7 @@ class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
       streams.showProgress.set(false);
       streams.twitters.set(listTwitters);
 
-      loadMetadatas();
+      _loadMetadatas();
 
     }).catchError((error){
       streams.showError.set(true);
@@ -50,7 +50,7 @@ class TwitterBloc extends BlocBase<TwitterStreams,TwitterEvents>{
     });
   }
 
-  void loadMetadatas() async{
+  void _loadMetadatas() async{
 
     listTwitters.forEach((i) async {
       if(i.text.contains("http")){
