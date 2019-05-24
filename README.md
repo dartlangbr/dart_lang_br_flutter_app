@@ -1,10 +1,15 @@
-# DartLangBr Flutter App
+## <img src="https://github.com/dartlangbr/dart_lang_br_flutter_app/blob/develop/imgs/dartlangbr.png" height="80"/>
+
+
+
+<img src="https://github.com/dartlangbr/dart_lang_br_flutter_app/blob/develop/imgs/app.gif" height="500"/>
 
 Aplicação oficial do [dartlangbr](http://dartlang.com.br/)
 
-# Contribuidores
-
+Contribuidores |
+--------- | 
 [RafaelBarbosaTec](https://github.com/RafaelBarbosatec)
+
 
 Caso encontre algum erro ou deseje adicionar melhorias, você pode abrir uma issue ou desenvolver a correção e abrir um pull request. Agradecemos sua colaboração!
 
