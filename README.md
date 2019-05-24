@@ -18,6 +18,7 @@ bsev    | [![Pub](https://img.shields.io/pub/v/bsev.svg)](https://pub.dartlang.o
 twitter  | [![Pub](https://img.shields.io/pub/v/twitter.svg)](https://pub.dartlang.org/packages/twitter)
 url_launcher  | [![Pub](https://img.shields.io/pub/v/url_launcher.svg)](https://pub.dartlang.org/packages/url_launcher)
 youtube_player_flutter  | [![Pub](https://img.shields.io/pub/v/youtube_player_flutter.svg)](https://pub.dartlang.org/packages/youtube_player_flutter)
+font_awesome_flutter  | [![Pub](https://img.shields.io/pub/v/font_awesome_flutter.svg)](https://pub.dartlang.org/packages/font_awesome_flutter)
 
 
 Caso encontre algum erro ou deseje adicionar melhorias, você pode abrir uma issue ou desenvolver a correção e abrir um pull request. Agradecemos sua colaboração!
