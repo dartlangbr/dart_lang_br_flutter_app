@@ -63,14 +63,19 @@ String dateTransformZ(String date){
 
 String getFisrtLinkInText(String tagImg) {
 
-  var tagImgstartIndex = tagImg.indexOf("http");
-  var tagImgendIndex = tagImg.substring(tagImgstartIndex).indexOf(" ");
-  var tagImgendLink = tagImg.length;
-  if(tagImgendIndex > -1){
-    tagImgendLink = tagImgstartIndex + tagImgendIndex;
+  if(tagImg.contains("http")){
+    var tagImgstartIndex = tagImg.indexOf("http");
+    var tagImgendIndex = tagImg.substring(tagImgstartIndex).indexOf(" ");
+    var tagImgendLink = tagImg.length;
+    if(tagImgendIndex > -1){
+      tagImgendLink = tagImgstartIndex + tagImgendIndex;
+    }
+
+    return tagImg.substring(tagImgstartIndex,tagImgendLink);
+  }else{
+    return "";
   }
 
-  return tagImg.substring(tagImgstartIndex,tagImgendLink);
 }
 
 Color ColorFromHex({String code}) {

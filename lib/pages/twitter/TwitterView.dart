@@ -25,7 +25,7 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
   void eventReceiver(EventsBase event) {
   }
 
-  _buildList(TwitterStreams streams) {
+  Widget _buildList(TwitterStreams streams) {
     return StreamBuilder(
       stream: streams.twitters.get,
       initialData: List<TwitterModel>(),
@@ -63,7 +63,7 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
     );
   }
 
-  _buildErrorConection(TwitterStreams streams) {
+ Widget _buildErrorConection(TwitterStreams streams) {
     return StreamBuilder(
       initialData: false,
       stream: streams.showError.get,

@@ -16,8 +16,10 @@ class TwitterRepositoryImpl implements TwitterRepository{
 
   TwitterRepositoryImpl(){
     twitterApi = Twitter(
-        'YOUR CONSUMER KEY', 'YOUR CONSUMER SERCRET',
-        'YOUR ACCESS TOKEN', 'YOUR ACCESS TOKEN SECERT'
+        'v9nmdOdOsfE246ij5xqQd9vB0',
+        '1f9y65jWT2WfgNzuGOHqjiAn0mJ565yfgvYOAUWNWzG53zXiyw',
+        '1108321177842401280-2eGQMmHUJIzJYhZv9GoK0fFfxub7VC',
+        'IKMaSwwZuWY6b6ThCCzOwHDzxoTl6qMT0ZEOjdjKDKr5h'
     );
   }
 
