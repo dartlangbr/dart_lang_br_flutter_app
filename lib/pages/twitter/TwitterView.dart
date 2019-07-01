@@ -8,24 +8,23 @@ import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/widgets/TwitterWidget.dart';
 import 'package:flutter/material.dart';
 
-class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
-
+class TwitterView extends StatelessWidget {
   @override
-  Widget buildView(BuildContext context, TwitterStreams streams) {
-    return Stack(
-      children: <Widget>[
-        _buildList(streams),
-        _buildProgress(streams),
-        _buildErrorConection(streams)
-      ],
+  Widget build(BuildContext context) {
+    return Bsev<TwitterBloc,TwitterStreams>(
+      builder: (context,dispatcher,streams){
+        return Stack(
+          children: <Widget>[
+            _buildList(streams),
+            _buildProgress(streams),
+            _buildErrorConection(streams,dispatcher)
+          ],
+        );
+      },
     );
   }
 
-  @override
-  void eventReceiver(EventsBase event) {
-  }
-
-  _buildList(TwitterStreams streams) {
+  Widget _buildList(TwitterStreams streams) {
     return StreamBuilder(
       stream: streams.twitters.get,
       initialData: List<TwitterModel>(),
@@ -63,14 +62,14 @@ class TwitterView extends BlocStatelessView<TwitterBloc,TwitterStreams> {
     );
   }
 
-  _buildErrorConection(TwitterStreams streams) {
+  Widget _buildErrorConection(TwitterStreams streams,dispatcher) {
     return StreamBuilder(
       initialData: false,
       stream: streams.showError.get,
       builder: (_,snapshot){
         if(snapshot.hasData && snapshot.data)  {
           return buildLayoutTryAgain((){
-            dispatch(LoadTwitter());
+            dispatcher(LoadTwitter());
           });
         }else{
           return Container();

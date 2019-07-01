@@ -23,7 +23,7 @@ dependencies:
   dio: ^2.0.4
   cached_network_image: ^0.6.0+1
   font_awesome_flutter: ^8.4.0
-  bsev: ^0.5.5
+  bsev: ^0.8.2
   twitter: ^1.0.0
   url_launcher: ^5.0.2
   youtube_player_flutter: ^1.1.0

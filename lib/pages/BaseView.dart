@@ -33,11 +33,11 @@ class BaseView extends StatelessWidget {
       builder: (context,snapshot){
         switch(snapshot.data){
           case 0:
-            return HomeView().create();
+            return HomeView();
           case 1:
-            return YoutubeView().create();
+            return YoutubeView();
           case 2:
-            return TwitterView().create();
+            return TwitterView();
         }
       },
     );

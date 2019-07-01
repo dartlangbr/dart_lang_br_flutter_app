@@ -8,21 +8,20 @@ import 'package:dart_lang_br_flutter_app/support/youtube_api/youtube_api.dart';
 import 'package:dart_lang_br_flutter_app/widgets/YoutubeWidget.dart';
 import 'package:flutter/material.dart';
 
-class YoutubeView extends BlocStatelessView<YoutubeBloc,YoutubeStreams> {
-
+class YoutubeView extends StatelessWidget {
   @override
-  Widget buildView(BuildContext context, YoutubeStreams streams) {
-    return Stack(
-      children: <Widget>[
-        _buildList(streams),
-        _buildProgress(streams),
-        _buildErrorConection(streams)
-      ],
+  Widget build(BuildContext context) {
+    return Bsev<YoutubeBloc,YoutubeStreams>(
+      builder: (context,dispatcher,streams){
+        return Stack(
+          children: <Widget>[
+            _buildList(streams),
+            _buildProgress(streams),
+            _buildErrorConection(streams,dispatcher)
+          ],
+        );
+      },
     );
-  }
-
-  @override
-  void eventReceiver(EventsBase event) {
   }
 
   Widget _buildProgress(YoutubeStreams streams) {
@@ -63,14 +62,14 @@ class YoutubeView extends BlocStatelessView<YoutubeBloc,YoutubeStreams> {
     );
   }
 
-  _buildErrorConection(YoutubeStreams streams) {
+  _buildErrorConection(YoutubeStreams streams,dispatcher) {
     return StreamBuilder(
       initialData: false,
       stream: streams.showError.get,
       builder: (_,snapshot){
         if(snapshot.hasData && snapshot.data)  {
           return buildLayoutTryAgain((){
-            dispatch(LoadYoutube());
+            dispatcher(LoadYoutube());
           });
         }else{
           return Container();
@@ -80,4 +79,3 @@ class YoutubeView extends BlocStatelessView<YoutubeBloc,YoutubeStreams> {
   }
 
 }
-

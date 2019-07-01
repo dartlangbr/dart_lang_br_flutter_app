@@ -7,23 +7,24 @@ import 'package:dart_lang_br_flutter_app/support/Util.dart';
 import 'package:dart_lang_br_flutter_app/widgets/PostWidget.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
+
+class HomeView extends StatelessWidget {
 
   @override
-  void eventReceiver(EventsBase event) {
+  Widget build(BuildContext context) {
+    return Bsev<HomeBloc,HomeStreams>(
+      builder: (context,dispatcher,streams){
+        return _buildBody(streams,dispatcher);
+      },
+    );
   }
 
-  @override
-  Widget buildView(BuildContext context, HomeStreams streams) {
-    return _buildBody(streams);
-  }
-
-  Widget _buildBody(HomeStreams streams) {
+  Widget _buildBody(HomeStreams streams,dispatcher) {
     return Stack(
       children: <Widget>[
-        _buildList(streams),
+        _buildList(streams,dispatcher),
         _buildProgress(streams),
-        _buildErrorConection(streams)
+        _buildErrorConection(streams,dispatcher)
       ],
     );
   }
@@ -43,7 +44,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
     );
   }
 
-  Widget _buildList(HomeStreams streams) {
+  Widget _buildList(HomeStreams streams,dispatcher) {
     return StreamBuilder(
       stream: streams.posts.get,
       builder: (_,snapshot){
@@ -59,7 +60,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
               itemBuilder: (_,index){
 
                 if(index > size - 2){
-                  dispatch(HomeLoadMore());
+                  dispatcher(HomeLoadMore());
                 }
 
                 return PostWidget(post: data[index],);
@@ -70,14 +71,14 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
     );
   }
 
-  _buildErrorConection(HomeStreams streams) {
+  _buildErrorConection(HomeStreams streams,dispatcher) {
     return StreamBuilder(
       initialData: false,
       stream: streams.showError.get,
       builder: (_,snapshot){
         if(snapshot.hasData && snapshot.data)  {
           return buildLayoutTryAgain((){
-            dispatch(HomeTryAgain());
+            dispatcher(HomeTryAgain());
           });
         }else{
           return Container();
